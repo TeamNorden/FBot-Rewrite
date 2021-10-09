@@ -7,7 +7,7 @@
  	- ***Counting*** Just count. All you do is count and compete against other servers. Make sure to not mess the number up
  	- ***Image processing*** commands to bonk yourself, bigpp your friends and trigger your enemies with more added regularly (sort of)
  	- ***Say commands***, force Fbot to say something for you
- 	- ***Minigames!!!*** FBot currently has two minigames built into the DUI (discord user interface?) with more planned, and we'd love to hear what you would like to see!
+ 	- ***Minigames!!!*** FBot currently has two minigames built into the DUI (**D**iscord **U**ser **I**nterface?) with more planned, and we'd love to hear what you would like to see!
 - **Highly Customisable**
   - The S.P.A.M.S (**S**ophisticated **P**ersonalised **A**utomated **M**essaging **S**ystem) feature is set to off by default but can be toggled on individually in a channel when necessary (which is always, obviously)
   - ***Modes*** (the speak feature) changes how FBot talks, experience the uwu mode which does exactly what you wouldn't want it to do, pirate talk (arr), f^^k mode which appropriately adds said word into a sentence as many times as is grammatically possible, and much more!
