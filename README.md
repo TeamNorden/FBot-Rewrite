@@ -1,5 +1,9 @@
 # **FBot**
-##### *The most annoying bot on discord, but it's rewritten*
+
+##### *The most annoying bot on Discord, but it's rewritten*
+## Full disclosure:
+#### FBot is being rewritten in JavaScript with Discord.JS v13. This is for many reasons, but mainly to comply with the (unfortunate) everchanging requirements for verified bots on Discord. This rewrite is being lead by Codeize and helped by close friends of the developers. [Please contact us if you have any suggestions or concerns](https://fbot.breadhub.uk/support)
+
 
 ## Features
 - **Lots of fun stuff**
