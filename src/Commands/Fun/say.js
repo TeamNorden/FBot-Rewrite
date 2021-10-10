@@ -10,8 +10,7 @@ module.exports = class extends Command {
 	
 	async run(message, args) {
         
-
-        message.channel.send(args.join(" "))
+        message.channel.send(`${args.join(" ")}`)
         message.delete()
 	}
 
