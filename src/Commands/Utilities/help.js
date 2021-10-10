@@ -21,7 +21,7 @@ module.exports = class extends Command {
 			.setTimestamp();
 
 		if (command) {
-			const cmd = this.client.commands.get(command) || this.client.commands.get(this.client.aliases.get(command));
+			const cmd = this.client.commands.get(command.toLowerCase()) || this.client.commands.get(this.client.aliases.get(command.toLowerCase()));
 
 			if (!cmd) return message.reply(`Invalid Command named. \`${command}\``);
 
@@ -31,7 +31,7 @@ module.exports = class extends Command {
 				`**❯ Description:** ${cmd.description}`,
 				`**❯ Category:** ${cmd.category}`,
 				`**❯ Usage:** ${cmd.usage}`
-			]);
+			].join('\n'));
 
 			return message.reply({ embeds: [embed] });
 		} else {
@@ -39,9 +39,9 @@ module.exports = class extends Command {
 				`These are the available commands for ${message.guild.name}`,
 				`The bot's prefix is: ${this.client.prefix}`,
 				`Command Parameters: \`<>\` is strict & \`[]\` is optional`
-			]);
+			].join('\n'));
 			let categories;
-			if (!this.client.owners.includes(message.author.id)) {
+			if (!this.client.owners?.includes(message.author.id)) {
 				categories = this.client.utils.removeDuplicates(this.client.commands.filter(cmd => cmd.category !== 'Owner').map(cmd => cmd.category));
 			} else {
 				categories = this.client.utils.removeDuplicates(this.client.commands.map(cmd => cmd.category));
