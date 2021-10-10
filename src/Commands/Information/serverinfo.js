@@ -55,8 +55,7 @@ module.exports = class extends Command {
 			.addField('General', [
 				`**❯ Name:** ${message.guild.name}`,
 				`**❯ ID:** ${message.guild.id}`,
-				`**❯ Owner:** ${message.guild.owner.user.tag} (${message.guild.ownerID})`,
-				`**❯ Region:** ${regions[message.guild.region]}`,
+				`**❯ Owner:** ${await message.guild.fetchOwner()} (${message.guild.ownerId})`,
 				`**❯ Boost Tier:** ${message.guild.premiumTier ? `Tier ${message.guild.premiumTier}` : 'None'}`,
 				`**❯ Explicit Filter:** ${filterLevels[message.guild.explicitContentFilter]}`,
 				`**❯ Verification Level:** ${verificationLevels[message.guild.verificationLevel]}`,
@@ -77,13 +76,13 @@ module.exports = class extends Command {
 				'\u200b'
 			].join('\n'))
 			.addField('Presence', [
-				`**❯ Online:** ${members.filter(member => member.presence.status === 'online').size}`,
-				`**❯ Idle:** ${members.filter(member => member.presence.status === 'idle').size}`,
-				`**❯ Do Not Disturb:** ${members.filter(member => member.presence.status === 'dnd').size}`,
-				`**❯ Offline:** ${members.filter(member => member.presence.status === 'offline').size}`,
+				`**❯ Online:** ${members.filter(member => member.presence?.status === 'online').size}`,
+				`**❯ Idle:** ${members.filter(member => member.presence?.status === 'idle').size}`,
+				`**❯ Do Not Disturb:** ${members.filter(member => member.presence?.status === 'dnd').size}`,
+				`**❯ Offline:** ${members.filter(member => member.presence?.status === 'offline' || member.presence?.status).size}`,
 				'\u200b'
 			].join('\n'))
-			.addField(`Roles [${roles.length - 1}]`, roles.length < 10 ? roles.join(', ') : roles.length > 10 ? this.client.utils.trimArray(roles) : 'None')
+			.addField(`Roles [${roles.length - 1}]`, roles.length < 10 ? roles.join(', ') : roles.length > 10 ? this.client.utils.trimArray(roles).join(', ') : 'None')
 			.setTimestamp();
 		
 		message.channel.send({ embeds: [embed] });
