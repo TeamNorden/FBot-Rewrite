@@ -13,11 +13,11 @@ module.exports = class extends Command {
 	}
 
 	async run(msg, ...banner) {
-        if(!banner) {
-            msg.reply("Maybe actually provide some text???")
-        } else {
-            return msg.channel.send(await figlet(banner), { code: true });
+        if(!banner || !banner.length) {
+            return msg.reply("Maybe actually provide some text???")
         }
+            
+		return msg.channel.send(await figlet(banner), { code: true });
 	}
 
 };
