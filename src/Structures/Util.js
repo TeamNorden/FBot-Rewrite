@@ -16,6 +16,15 @@ module.exports = class Util {
         input.toString().substring(0, 5) === 'class';
 	}
 
+	// instead of repeating these lines over and over again, simple do getMember(message, args[index])
+	async getMember(message, memberId) {
+		let member = message.mentions.members.first() || message.guild.members.fetch(memberId).catch(e => {
+			let member = null
+		})
+
+		return member
+	}
+
 	get directory() {
 		return `${path.dirname(require.main.filename)}${path.sep}`;
 	}
