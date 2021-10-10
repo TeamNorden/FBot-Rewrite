@@ -31,7 +31,7 @@ module.exports = class extends Command {
 				`**❯ Version:** v${version}`,
 				`**❯ Discord.js:** v${djsversion}`,
 				'\u200b'
-			])
+			].join('\n'))
 			.addField('System', [
 				`**❯ Platform:** ${process.platform}`,
 				`**❯ Uptime:** ${ms(os.uptime() * 1000, { long: true })}`,
@@ -42,10 +42,10 @@ module.exports = class extends Command {
 				`**❯ Memory:**`,
 				`\u3000 Total: ${this.client.utils.formatBytes(process.memoryUsage().heapTotal)}`,
 				`\u3000 Used: ${this.client.utils.formatBytes(process.memoryUsage().heapUsed)}`
-			])
+			].join('\n'))
 			.setTimestamp();
 
-		message.channel.send(embed);
+		message.channel.send({ embeds: [embed] });
 	}
 
 };

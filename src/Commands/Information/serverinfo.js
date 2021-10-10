@@ -44,7 +44,7 @@ module.exports = class extends Command {
 
 	async run(message) {
 		const roles = message.guild.roles.cache.sort((a, b) => b.position - a.position).map(role => role.toString());
-		const members = message.guild.members.cache;
+		const members = await message.guild.members.fetch();
 		const channels = message.guild.channels.cache;
 		const emojis = message.guild.emojis.cache;
 
@@ -62,7 +62,7 @@ module.exports = class extends Command {
 				`**❯ Verification Level:** ${verificationLevels[message.guild.verificationLevel]}`,
 				`**❯ Time Created:** ${moment(message.guild.createdTimestamp).format('LT')} - ${moment(message.guild.createdTimestamp).format('LL')} - ${moment(message.guild.createdTimestamp).fromNow()}`,
 				'\u200b'
-			])
+			].join('\n'))
 			.addField('Statistics', [
 				`**❯ Role Count:** ${roles.length}`,
 				`**❯ Emoji Count:** ${emojis.size}`,
@@ -75,17 +75,17 @@ module.exports = class extends Command {
 				`**❯ Voice Channels:** ${channels.filter(channel => channel.type === 'voice').size}`,
 				`**❯ Boost Count:** ${message.guild.premiumSubscriptionCount || '0'}`,
 				'\u200b'
-			])
+			].join('\n'))
 			.addField('Presence', [
 				`**❯ Online:** ${members.filter(member => member.presence.status === 'online').size}`,
 				`**❯ Idle:** ${members.filter(member => member.presence.status === 'idle').size}`,
 				`**❯ Do Not Disturb:** ${members.filter(member => member.presence.status === 'dnd').size}`,
 				`**❯ Offline:** ${members.filter(member => member.presence.status === 'offline').size}`,
 				'\u200b'
-			])
+			].join('\n'))
 			.addField(`Roles [${roles.length - 1}]`, roles.length < 10 ? roles.join(', ') : roles.length > 10 ? this.client.utils.trimArray(roles) : 'None')
 			.setTimestamp();
-		message.channel.send(embed);
+		
+		message.channel.send({ embeds: [embed] });
 	}
-
 };

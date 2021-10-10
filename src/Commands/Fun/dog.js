@@ -16,7 +16,7 @@ module.exports = class extends Command {
 			.then(response => response.json())
 			.then(body => body.data);
 		const selected = data[Math.floor(Math.random() * data.length)];
-		return message.channel.send(new MessageEmbed().setImage(`https://imgur.com/${selected.hash}${selected.ext.replace(/\?.*/, '')}`));
+		return message.channel.send({ embeds: [new MessageEmbed().setImage(`https://imgur.com/${selected.hash}${selected.ext.replace(/\?.*/, '')}`)] });
 	}
 
 };
