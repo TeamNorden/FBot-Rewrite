@@ -44,4 +44,12 @@ module.exports = class FBotEmbed extends MessageEmbed {
 		return this;
 	}
 
+	// right now this seems useless but i will add more stuff
+	setType(type) {
+		if (!type) type = 'main'
+
+		this.color = type.toLowerCase() === 'main' ? 0x0000FF : 0xFFFFFF
+
+		return this
+	}
 };
