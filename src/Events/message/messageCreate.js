@@ -19,7 +19,7 @@ module.exports = class extends Event {
 
 		const command = this.client.commands.get(cmd.toLowerCase()) || this.client.commands.get(this.client.aliases.get(cmd.toLowerCase()));
 		if (command) {
-			if (command.category.toLowerCase() === 'owner' && !ownerOnly) command.ownerOnly = true
+			if (command.category.toLowerCase() === 'owner' && !command.ownerOnly) command.ownerOnly = true
 
 			if (command.ownerOnly && !this.client.utils.checkOwner(message.author.id)) {
 				return message.reply('Shoo now you non-developer, this command can only be used by bot developers.');
