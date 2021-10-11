@@ -45,7 +45,7 @@ module.exports = class FBotClient extends Client {
 		this.prefix = options.prefix;
 		
 		if (!options.defaultPerms) throw new Error('You must pass default perm(s) for the Client.');
-		this.defaultPerms = new Permissions(options.defaultPerms).freeze();
+		this.defaultPerms = options.defaultPerms
 	}
 
 	async start(token = this.token) {
