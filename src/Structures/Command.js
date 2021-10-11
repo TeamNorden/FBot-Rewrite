@@ -9,8 +9,7 @@ module.exports = class Command {
 		this.description = options.description || 'No description provided.';
 		this.category = options.category || 'General';
 		this.usage = `${this.client.prefix}${this.name} ${options.usage || ''}`.trim();
-		this.userPerms = new Permissions(options.userPerms).freeze();
-		this.botPerms = new Permissions(options.botPerms).freeze();
+		this.permissions = typeof options.permissions === 'string' ? [options.permissions] : options.permissions
 		this.guildOnly = options.guildOnly ?? false;
 		this.ownerOnly = options.ownerOnly ?? false;
 		this.nsfw = options.nsfw ?? false;

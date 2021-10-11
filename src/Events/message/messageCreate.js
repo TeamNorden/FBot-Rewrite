@@ -6,6 +6,8 @@ module.exports = class extends Event {
 		const mentionRegex = RegExp(`^<@!?${this.client.user.id}>$`);
 		const mentionRegexPrefix = RegExp(`^<@!?${this.client.user.id}> `);
 
+		if (!message.member) message.member = await message.guild.members.fetch(message.author.id)
+
 		if (message.author.bot) return;
 
 		if (message.content.match(mentionRegex)) message.channel.send(`My prefix for ${message.guild.name} is \`${this.client.prefix}\`.`);
@@ -18,6 +20,7 @@ module.exports = class extends Event {
 		const [cmd, ...args] = message.content.slice(prefix.length).trim().split(/ +/g);
 
 		const command = this.client.commands.get(cmd.toLowerCase()) || this.client.commands.get(this.client.aliases.get(cmd.toLowerCase()));
+
 		if (command) {
 			if (command.category.toLowerCase() === 'owner' && !command.ownerOnly) command.ownerOnly = true
 
@@ -39,29 +42,21 @@ module.exports = class extends Event {
 			}
 			
 			if (message.guild) {
-				const userPermCheck = command.userPerms ? this.client.defaultPerms.add(command.userPerms) : this.client.defaultPerms;
-				if (userPermCheck) {
-					const missing = message.channel.permissionsFor(message.member).missing(userPermCheck);
-					if (missing.length) {
-						return message.reply(`You are missing ${this.client.utils.formatArray(missing.map(this.client.utils.formatPerms))} permissions, you need them to use this command!`);
-					}
-				}
+				const permissions = command.permissions ? this.client.defaultPerms.concat(command.permissions) : this.client.defaultPerms
 
-				const botPermCheck = command.botPerms ? this.client.defaultPerms.add(command.botPerms) : this.client.defaultPerms;
-				if (botPermCheck) {
-					const missing = message.channel.permissionsFor(this.client.user).missing(botPermCheck);
-					if (missing.length) {
-						return message.reply(`I am missing ${this.client.utils.formatArray(missing.map(this.client.utils.formatPerms))} permissions, I need them to run this command!`);
+				if (permissions) {
+						const missing = permissions.filter(p => !message.channel.permissionsFor(message.member).toArray().includes(p))
+						const botMissing = permissions.filter(p => !message.channel.permissionsFor(message.guild.me).toArray().includes(p))
+
+						if (missing.length || botMissing.length) return message.reply(`${missing.length ? 'You are' : 'I am'} missing \`${this.client.utils.formatArray(missing.length ? missing.map(this.client.utils.formatPerms) : botMissing.map(this.client.utils.formatPerms))}\` permissions, ${missing.length ? 'You' : 'I'} need them to ${missing.length ? 'use' : 'run'} this command!`);
 					}
 				}
 			}
 			
-			try {
-				command.run(message, args);
-			} catch (e) {
-				console.log(e)
-			} // if theres an err, we dont want our bot to crash
-		}
+		try {
+			command.run(message, args);
+		} catch (e) {
+			console.log(e)
+		} // if theres an err, we dont want our bot to crash
 	}
-
 };
