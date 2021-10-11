@@ -45,10 +45,16 @@ module.exports = class FBotEmbed extends MessageEmbed {
 	}
 
 	// right now this seems useless but i will add more stuff
+
+	/**
+	 * @description - Custom Types For The Embed
+	 * @param [type] - The type of the embed (default: 'main')
+	 * @returns {MessageEmbed}
+	 */
 	setType(type) {
 		if (!type) type = 'main'
 
-		this.color = type.toLowerCase() === 'main' ? 0x0000FF : 0xFFFFFF
+		this.color = type.toLowerCase() === 'main' ? 0x3498db : 0xFFFFFF
 
 		return this
 	}
