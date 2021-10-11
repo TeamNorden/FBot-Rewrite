@@ -54,7 +54,7 @@ module.exports = class Util {
 	}
 	
 	checkOwner(target) {
-		return this.client.owners.includes(target);
+		return this.client.owners?.includes(target);
 	}
 
 	comparePerms(member, target) {
