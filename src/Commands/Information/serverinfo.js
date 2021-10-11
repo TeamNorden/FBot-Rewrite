@@ -36,7 +36,7 @@ module.exports = class extends Command {
 
 	constructor(...args) {
 		super(...args, {
-			aliases: ['server', 'guild', 'guildinfo'],
+			aliases: ['serverinfo', 'si', 'guildinfo', 'gi'],
 			description: 'Displays information about the server that said message was run in.',
 			category: 'Information'
 		});
@@ -47,6 +47,8 @@ module.exports = class extends Command {
 		const members = await message.guild.members.fetch();
 		const channels = message.guild.channels.cache;
 		const emojis = message.guild.emojis.cache;
+
+		console.log(channels)
 
 		const embed = new MessageEmbed()
 			.setDescription(`**Guild information for *${message.guild.name}***`)
@@ -70,8 +72,8 @@ module.exports = class extends Command {
 				`**❯ Member Count:** ${message.guild.memberCount}`,
 				`**❯ Regular Users:** ${members.filter(member => !member.user.bot).size}`,
 				`**❯ Bots:** ${members.filter(member => member.user.bot).size}`,
-				`**❯ Text Channels:** ${channels.filter(channel => channel.type === 'text').size}`,
-				`**❯ Voice Channels:** ${channels.filter(channel => channel.type === 'voice').size}`,
+				`**❯ Text Channels:** ${channels.filter(channel => channel.type === 'GUILD_TEXT').size}`,
+				`**❯ Voice Channels:** ${channels.filter(channel => channel.type === 'GUILD_VOICE').size}`,
 				`**❯ Boost Count:** ${message.guild.premiumSubscriptionCount || '0'}`,
 				'\u200b'
 			].join('\n'))
