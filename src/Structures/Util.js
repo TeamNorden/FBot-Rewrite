@@ -16,6 +16,10 @@ module.exports = class Util {
         input.toString().substring(0, 5) === 'class';
 	}
 
+	get directory() {
+		return `${path.dirname(require.main.filename)}${path.sep}`;
+	}
+
 	// instead of repeating these lines over and over again, simple do getMember(message, args[index])
 	async getMember(message, memberId) {
 		let member = message.mentions.members.first() || message.guild.members.fetch(memberId).catch(e => {
@@ -23,10 +27,6 @@ module.exports = class Util {
 		})
 
 		return member
-	}
-
-	get directory() {
-		return `${path.dirname(require.main.filename)}${path.sep}`;
 	}
 
 	trimArray(arr, maxLen = 10) {
