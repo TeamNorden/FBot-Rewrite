@@ -7,6 +7,9 @@
   "author": "Codeize",
   "license": "Other",
   "private": true,
+  "scripts": {
+    "start": "node src/index.js"
+  },
   "dependencies": {
     "diff": "^5.0.0",
     "discord.js": "^13.2.0",
