@@ -15,7 +15,8 @@ module.exports = class extends Command {
 		const choices = ['Is this really my ping?', 'This doesn\'t feel good! I can\'t look!', 'Could be worse!'];
 		const response = choices[Math.floor(Math.random() * choices.length)];
 
-		msg.edit(`${response} - Bot Latency: \`${latency}ms\`, API Latency: \`${Math.round(this.client.ws.ping)}ms\``);
+		// easter egg
+		msg.edit(`${latency == 69 ? 'nice' : response} - Bot Latency: \`${latency}ms\`, API Latency: \`${Math.round(this.client.ws.ping)}ms\``);
 	}
 
 };
