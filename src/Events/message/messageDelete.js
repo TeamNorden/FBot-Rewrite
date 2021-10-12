@@ -20,7 +20,7 @@ module.exports = class extends Event {
 			embed.splitFields(`**❯ Deleted Message:** ${message.content}`);
 		}
 
-		const channel = message.guild.channels.cache.find(ch => ch.name === 'testing');
+		const channel = message.guild.channels.cache.find(ch => ch.name === 'testing' && ch.type === 'GUILD_TEXT');
 		if (channel) channel.send(embed);
 	}
 
