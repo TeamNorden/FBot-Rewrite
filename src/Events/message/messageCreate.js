@@ -54,7 +54,7 @@ module.exports = class extends Event {
 			}
 			
 		try {
-			command.run(message, args);
+			command?.run(message, args);
 		} catch (e) {
 			console.log(e)
 		} // if theres an err, we dont want our bot to crash
