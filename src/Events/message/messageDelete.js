@@ -16,6 +16,7 @@ module.exports = class extends Event {
 				`**❯ Author:** ${message.member.displayName}`,
 				`${attachments ? `**❯ Attachments:** ${attachments.join('\n')}` : ''}`
 			].join('\n'));
+
 		if (message.content.length) {
 			embed.splitFields(`**❯ Deleted Message:** ${message.content}`);
 		}
@@ -23,5 +24,4 @@ module.exports = class extends Event {
 		const channel = message.guild.channels.cache.find(ch => ch.name === 'testing' && ch.type === 'GUILD_TEXT');
 		if (channel) channel.send({ embeds: [embed] })
 	}
-
 };
