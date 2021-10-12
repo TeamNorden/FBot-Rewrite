@@ -22,6 +22,7 @@ module.exports = class extends Event {
 		}
 
 		const channel = message.guild.channels.cache.find(ch => ch.name === 'testing' && ch.type === 'GUILD_TEXT');
-		if (channel) channel.send({ embeds: [embed] })
+
+		if (channel) channel.send({ embeds: [embed] }).catch(() => { })
 	}
 };
