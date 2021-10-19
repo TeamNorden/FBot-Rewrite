@@ -50,9 +50,11 @@ module.exports = class FBotClient extends Client {
 	}
 
 	async start(token = this.token) {
+		if (!mongoURI) throw new Error('Please provide a mongo connection string in the config.json file')
+
 		await this.utils.loadCommands();
-		await this.utils.loadEvents();
-		await this.utils.connectToDB(mongoURI)
+		await this.utils.loadEvents(mongoURI);
+		await this.utils.connectToDB()
 		
 		await super.login(token);
 	}
