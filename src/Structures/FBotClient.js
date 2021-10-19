@@ -1,5 +1,6 @@
 const { Client, Collection, Permissions, Intents } = require('discord.js');
 const Util = require('./Util.js');
+const { mongoURI } = require('../../config.json')
 
 module.exports = class FBotClient extends Client {
 
@@ -49,8 +50,9 @@ module.exports = class FBotClient extends Client {
 	}
 
 	async start(token = this.token) {
-		this.utils.loadCommands();
-		this.utils.loadEvents();
+		await this.utils.loadCommands();
+		await this.utils.loadEvents();
+		await this.utils.connectToDB(mongoURI)
 		
 		await super.login(token);
 	}

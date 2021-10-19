@@ -3,6 +3,7 @@ const { promisify } = require('util');
 const glob = promisify(require('glob'));
 const Command = require('./Command.js');
 const Event = require('./Event.js');
+const mongoose = require("mongoose");
 
 module.exports = class Util {
 
@@ -67,7 +68,7 @@ module.exports = class Util {
 				.replace(/(^|"|_)(\S)/g, (s) => s.toUpperCase())
 				.replace(/_/g, ' ')
 				.replace(/Guild/g, 'Server')
-				.replace(/Use Vad/g, 'Use Voice Acitvity');
+				.replace(/Use Vad/g, 'Use Voice Activity');
 	}
 
 	formatArray(array, type = 'conjunction') {
@@ -82,7 +83,7 @@ module.exports = class Util {
 				const File = require(commandFile);
 				if (!this.isClass(File)) throw new TypeError(`Command ${name} doesn't export a class.`);
 				const command = new File(this.client, name.toLowerCase());
-				if (!(command instanceof Command)) throw new TypeError(`Comamnd ${name} doesnt belong in Commands.`);
+				if (!(command instanceof Command)) throw new TypeError(`Command ${name} doesnt belong in Commands.`);
 				this.client.commands.set(command.name, command);
 				if (command.aliases.length) {
 					for (const alias of command.aliases) {
@@ -108,4 +109,14 @@ module.exports = class Util {
 		});
 	}
 
+	async connectToDB(connectionString) {
+		mongoose.connect(connectionString, {
+			useNewUrlParser: true,
+			useUnifiedTopology: true
+		}).then(() => {
+			console.log('Successfully connected to mongoose!')
+		}).catch(e => {
+			console.log('Failed to connect to mongoose!\nError: ' + e)
+		})
+	}
 };
