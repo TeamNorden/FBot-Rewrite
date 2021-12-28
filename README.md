@@ -1,3 +1,5 @@
+![FBot Banner](FBot-Banner.png)
+
 # **FBot**
 
 ##### *The most annoying bot on Discord, but it's rewritten*
